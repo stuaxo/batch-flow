@@ -1,0 +1,25 @@
+"addpath.cmd" Add a path to the system path
+"browse.btm" Browse directories using a text interface
+"ccd.cmd" Copy Current Directory to clipboard
+"cpath.cmd" Copy the local path to clipboard
+"docs.cmd" Go to Documents folder
+"dt.cmd" Go to Desktop
+"e.cmd" Run explorer current or specific directory
+"lnk.cmd" Create a shortcut
+"pcd.cmd" Go to directory in the clipboard
+"pf.cmd" Go to ProgramFiles
+"pfiles.cmd" Paste files from explorer
+"regpath.cmd" Manipulate and view the system path
+"updateenvironment.cmd" Update environment (often saves logging out)
+"x.cmd" Exit the command prompt
+"dirload.cmd" Go to a bookmarked directory
+"dirsave.cmd" Bookmark a directory
+"addpath.js" Used by addpath.cmd
+"ccd.py" Used by ccd.cmd
+"cpath.py" User by cpath.cmd
+"lnk.py" Used by lnk.cmd
+"pcd.py" User by pcd.cmd
+"pfiles.py" Used by pfiles.cmd
+"hide.cmd" Hide a file
+"unhide.cmd" Unhide a file
+"regpath.js" Used by regpath.cmd

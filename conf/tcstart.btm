@@ -1,0 +1,2 @@
+@if %_pipe != 0 .or. %_transient != 0 quit
+@alias /r %~d0%~p0\aliases.ini

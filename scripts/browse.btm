@@ -1,0 +1,66 @@
+@ECHO OFF
+BREAK OFF
+LOADBTM ON
+
+SET QUICKRUN=NO
+
+IF "%1" == "/?" GOTO HELP
+IF "%1" == "-?" GOTO HELP
+IF "%1" == "/H" GOTO HELP
+IF "%1" == "-H" GOTO HELP
+IF "%1" == "--h" GOTO HELP
+IF "%1" == "--he" GOTO HELP
+IF "%1" == "--hel" GOTO HELP
+IF "%1" == "--help" GOTO HELP
+IF "%1" == "" SET QUICKRUN=YES
+IF "%1" == "/EX" SET QUICKRUN=YES
+IF "%1" == "/Ex" SET QUICKRUN=YES
+IF "%1" == "/eX" SET QUICKRUN=YES
+IF "%1" == "/ex" SET QUICKRUN=YES
+IF "%QUICKRUN%" == "YES" SHIFT
+IF NOT "%1" == "" GOTO STARTPATH
+
+:START
+SET TMPX=
+DESCRIBE NUL "Exit to command prompt... [ESC]"
+SELECT SET TMPX=(*.*)
+IF "%TMPX%" == "" GOTO END
+IF %TMPX%==nul GOTO END
+IF EXIST %TMPX%\NUL GOTO CHDIREC
+IF EXIST %TMPX% GOTO RUNPROG
+GOTO END
+
+:STARTPATH
+SET TMPX=%1
+
+:CHDIREC
+CD %TMPX%
+IF %QUICKRUN%==NO GOTO START
+IF EXIST %TMPX%.BAT GOTO RUNPROG
+IF EXIST %TMPX%.COM GOTO RUNPROG
+IF EXIST %TMPX%.EXE GOTO RUNPROG
+GOTO START
+
+:RUNPROG
+IF EXIST %TMPX%.BAT CALL %TMPX%.BAT
+IF NOT EXIST %TMPX%.BAT %TMPX%
+IF "%QUICKRUN%" == "NO" GOTO START
+CD..
+IF "%QUICKRUN%" == "YES" GOTO END
+GOTO START
+
+:HELP
+ECHO Browse.Bat             By Stuart Axon 1999              for 4DOS/NDOS
+ECHO.
+ECHO Usage:
+ECHO.
+ECHO BROWSE /EX             Auto-execution
+ECHO                        /EX Synopsis: 
+ECHO												run bat,com,exe file corresponding to directory selected
+ECHO												processed it that order
+ECHO.
+
+:END
+SET TMPX=
+SET QUICKRUN=
+DESCRIBE NUL ""
