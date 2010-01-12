@@ -42,6 +42,7 @@ popd
 cd %%A
 goto end
 )
+popd
 echo No directory bookmark %1
 goto end
 
@@ -75,7 +76,6 @@ goto end
 
 :noslot
 echo No directory saved at %1
-echo Run dirload /? for usage
 goto end
 
 
