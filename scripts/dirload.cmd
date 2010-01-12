@@ -20,7 +20,7 @@ if "%1"=="/?" goto usage
 if "%1"=="/H" goto usage
 if "%1"=="/h" goto usage
 
-if not exist %APPDATA%\CMD\SaveDirs\*.scd goto nonesaved
+if not exist "%APPDATA%\CMD\SaveDirs\*.scd" goto nonesaved
 
 if "%1"=="/L" goto listdirs
 if "%1"=="/l" goto listdirs
@@ -33,11 +33,16 @@ goto dirload
 :dirload
 if not exist "%APPDATA%\CMD\SaveDirs\%1.scd" goto noslot
 
-for /f "delims=/" %%A in (%APPDATA%\CMD\SaveDirs\%1.scd) do (
+:: need to cd into dir for XP compatibility
+:: pushd, popd in case CD to SaveDirs fails
+pushd
+cd "%APPDATA%\CMD\SaveDirs"
+for /f "delims=/" %%A in (%1.scd) do (
+popd
 cd %%A
 goto end
 )
-echo No saved folder
+echo No directory bookmark %1
 goto end
 
 
