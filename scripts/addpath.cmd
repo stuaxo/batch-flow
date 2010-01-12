@@ -10,8 +10,8 @@ cscript //nologo %~d0%~p0\addpath.js %*
 if ERRORLEVEL 1 goto already_in_path
 if ERRORLEVEL 2 goto does_not_exist
 
-goto end
-echo PATH=%PATH%;%*
+if "%*"=="." PATH=%PATH%;%CD%
+if not "%*"=="." PATH=%PATH%;%*
 goto end
 
 :already_in_path
