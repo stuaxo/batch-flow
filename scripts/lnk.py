@@ -5,7 +5,8 @@ import winshell
 
 def create_shortcut(target, shortcut):
     if target.rpartition('.')[2] in ('cmd', 'bat', 'exe', 'lnk', 'pif', 'com', 'url'):
-        processed_shortcut = shortcut.rpartition('.')[0] + '.lnk'
+    	print shortcut.rpartition('.')[0]
+        processed_shortcut = shortcut.rpartition('.')[0] or shortcut + '.lnk'
     else:
         processed_shortcut = shortcut + '.lnk'
     
