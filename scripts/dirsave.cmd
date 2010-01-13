@@ -35,7 +35,7 @@ goto end
 
 
 :cleardirs
-if not exist %APPDATA%\CMD\SaveDirs\*.scd goto nonesaved
+if not exist "%APPDATA%\CMD\SaveDirs\*.scd" goto nonesaved
 if ""=="%2" goto cleardirs_clearall
 echo Deleting specified bookmarks:
 
@@ -56,7 +56,7 @@ goto cancelled
 :cleardirs_clearspecific
 if ""=="%1" goto end
 if not exist %APPDATA%\CMD\SaveDirs\%1.scd goto cleardirs_clearspecific_nofile
-del %APPDATA%\CMD\SaveDirs\%1.scd > NUL
+del "%APPDATA%\CMD\SaveDirs\%1.scd" > NUL
 echo %%~n1 Cleared
 shift
 goto cleardirs_clearspecific
