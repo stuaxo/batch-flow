@@ -22,6 +22,7 @@ Help with:
      Open explorer in current directory            [e]
      Notepad                                       [np]
      Firefox                                       [ff]
+     Hide/Unhide a file                            [hide/unhide]
 
 Activate these from hotkeys by using TCC/LE or 4NT as your shell with
 the supplied aliases.ini
