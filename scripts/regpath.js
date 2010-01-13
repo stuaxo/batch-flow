@@ -62,7 +62,12 @@ validate = false;
 WshShell = WScript.CreateObject("WScript.Shell");
 systemEnv = WshShell.Environment("SYSTEM");
 userEnv = WshShell.Environment("User");
-registryPath = userEnv("Path") + ';' + systemEnv("Path");
+registryPath = userEnv("Path");
+if (registryPath != "")
+{
+	registryPath += ";";
+}
+registryPath += systemEnv("Path");
 
 
 /**
