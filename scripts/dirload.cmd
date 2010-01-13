@@ -49,11 +49,18 @@ goto end
 
 :listdirs
 echo Bookmark	Directory
+if not "%2"=="" goto listdirs_specific
 for /f %%A IN ('dir /b "%APPDATA%\CMD\SaveDirs\*.scd"') do (
     call dirload /S %%~nA
 )
 goto end
 
+:listdirs_specific
+shift
+if "%1"=="" goto end
+if not exist "%APPDATA%\CMD\SaveDirs\%1.scd" goto listdirs_specific
+call dirload /S %1
+goto listdirs_specific
 
 :showdir
 if ""=="%2" goto showdir_usage
