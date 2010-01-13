@@ -11,5 +11,6 @@
 :  |  |  |  |  |  + Shell Folders  [Personal]
 :  '  '  '  '  '
 :
-for /F "tokens=3,skip=2" %%a in ('reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v Personal') DO cd /D %%a
-
+: extra 'if' is for tccle/4nt
+:
+FOR /F "tokens=3* delims=	" %%A IN ('reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v Personal') DO if not "%%A"=="" CD /D %%A
