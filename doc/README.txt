@@ -11,8 +11,8 @@ Help with:
      Copy the current directory to the clipboard   [ccd]
      Copy the local path to the clipboard          [cpath]
      Paste files into the current directory        [pfiles]
-     Save a directory to a named slot              [dirsave]
-     Load a directory from a named slot            [dirload]
+     Save a directory to a named bookmark          [dirsave]
+     Load a directory from a named bookmark        [dirload]
      Create windows shortcuts (lnk files)          [lnk]
 
   Shortcuts to common locations and programs and operations

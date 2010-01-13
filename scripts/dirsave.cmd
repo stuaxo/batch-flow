@@ -37,7 +37,7 @@ goto end
 :cleardirs
 if not exist %APPDATA%\CMD\SaveDirs\*.scd goto nonesaved
 if ""=="%2" goto cleardirs_clearall
-echo Deleting specified slots:
+echo Deleting specified bookmarks:
 
 if not ""=="%3" goto cleardirs_clearspecific_confirm
 
@@ -46,7 +46,7 @@ goto cleardirs_clearspecific
 
 :cleardirs_clearspecific_confirm
 shift
-set /p dirload_choice=Clear slots %* ?  [y/N]
+set /p dirload_choice=Clear bookmarks %* ?  [y/N]
 if ""=="%dirload_choice%" goto cancelled
 if "Y"=="%dirload_choice%" goto cleardirs_clearspecific
 if "y"=="%dirload_choice%" goto cleardirs_clearspecific
@@ -96,9 +96,9 @@ goto end
 
 :usage
 echo Usage:
-echo    dirsave name            Save current directory to slot name
-echo    dirsave /C name1 name2  Clear directory slots name1 and name2
-echo    dirsave /C              Clear ALL directory slots
+echo    dirsave name            Save current directory to bookmark 'name'
+echo    dirsave /C name1 name2  Clear directory bookmarks name1 and name2
+echo    dirsave /C              Clear ALL directory bookmarks
 echo See also dirload
 :end
 

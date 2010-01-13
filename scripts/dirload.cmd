@@ -48,7 +48,7 @@ goto end
 
 
 :listdirs
-echo Slot	Folder
+echo Bookmark	Directory
 for /f %%A IN ('dir /b "%APPDATA%\CMD\SaveDirs\*.scd"') do (
     call dirload /S %%~nA
 )
@@ -60,7 +60,7 @@ if ""=="%2" goto showdir_usage
 pushd
 cd "%APPDATA%\CMD\SaveDirs"
 for /f "delims=/" %%A in (%2.scd) do (
-    echo %2	%%A
+    echo %2		%%A
     popd
     goto end
 )
@@ -86,10 +86,10 @@ goto end
 
 :usage
 echo dirload usage:
-echo    dirload name            Change to directory-slot name
-echo    dirload /L              List saved directory slots
-echo    dirload /L name1 name2  List slots name1 and name2
-echo    dirload /S name         Show directory slot called name
+echo    dirload name            Change to directory at bookmark 'name'
+echo    dirload /L              List bookmarked directories
+echo    dirload /L name1 name2  List bookmarks name1 and name2
+echo    dirload /S name         Show directory bookmark called 'name'
 echo See also dirsave
 
 :end
