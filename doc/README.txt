@@ -146,7 +146,7 @@ Paste files into the current directory.
 Works in the same way as using 'paste' in windows explorer to a folder
 
 
-[Directory Navigation]
+[Directory Bookmarking with dirsave and dirload]
 
 dirsave
 
@@ -182,6 +182,13 @@ List specific bookmarks
 Bookmark        Directory
 devstuff        C:\dev\my stuff
 work		C:\dev\work
+
+This is used to have directories bound to Fkeys in TCC/LE or 4nt.
+
+When pressing Alt-F12 only the bookmarks attached to Fkeys are shown,
+to see all the saved bookmarks dirload /l can be used as normal.
+
+
 
 Show a single bookmark with no title (useful for scripting)
 [c:\] dirload /s devstuff
