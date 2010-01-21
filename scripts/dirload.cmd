@@ -26,6 +26,7 @@ if "%1"=="/L" goto listdirs
 if "%1"=="/l" goto listdirs
 if "%1"=="/s" goto showdir
 if "%1"=="/S" goto showdir
+if "%1"=="/-" goto batchflowdir
 
 goto dirload
 
@@ -80,6 +81,11 @@ echo Must specify directory slot
 echo See dirload /? for usage
 goto end
 
+:batchflowdir
+:: Undocumented function for developers
+echo Going to directory containing dirload
+cd /d %~d0%~p0
+goto end
 
 :noslot
 echo No directory saved at %1
