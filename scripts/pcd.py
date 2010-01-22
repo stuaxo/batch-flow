@@ -5,45 +5,56 @@ import tempfile
 from win32con import CF_TEXT, CF_HDROP
 from win32clipboard import IsClipboardFormatAvailable, OpenClipboard, GetClipboardData, CloseClipboard
 
-def _gen_script(script, clipboard):
+def _gen_script(script, directory):
     """
     Generate script to change directory
     """
     with open(script, 'wb') as f:
-        f.write('CD /D %s\n' % clipboard)
+        f.write('CD /D %s\n' % directory)
     
+
+def goto_directory(directory):
+    """
+    Generate batch script and then change to directory
+    """
+    _gen_script('%s\\go_pcd.cmd' % tempfile.gettempdir(), directory)
+    os.chdir(directory)
 
 def main():
     """
     Copy current working directory to clipboard
     """
-    if sys.argv[-1] != '/BATCHLAUNCH':
+    if len(sys.argv) == 1 or sys.argv[1] != '/BATCHLAUNCH':
         print 'Needs to be launched from batch file.'
         sys.exit(1)
     
     OpenClipboard()
     if (IsClipboardFormatAvailable(CF_TEXT)):
-        clipboard = GetClipboardData(CF_TEXT)
+        path = GetClipboardData(CF_TEXT)
     elif (IsClipboardFormatAvailable(CF_HDROP)):
-        clipboard = os.path.basename(GetClipboardData(CF_HDROP)[0])
+        path = os.path.basename(GetClipboardData(CF_HDROP)[0])
     else:
         print 'Sorry no clipboard data I can use.'
-        clipboard = None
+        path = None
     CloseClipboard()
     
-    if not clipboard:
+    if not path:
         sys.exit(1)
     
     cwd = os.getcwd()
-    if cwd == clipboard:
-        print 'Already at [' + clipboard + ']'
+    if cwd == path:
+        print 'Already at [' + path + ']'
         sys.exit(1)
     
     try:
-        os.chdir(clipboard)
-        _gen_script('%s\\go_pcd.cmd' % tempfile.gettempdir(), clipboard)
+        if os.path.isfile(path):
+            parent = os.path.normpath(os.path.join(path, '..'))
+            print '[%s] is a file, changing to parent directory.' % path
+            goto_directory(parent)
+        else:
+            goto_directory(path)
     except:
-        location, sep, extra = clipboard.partition('\n')
+        location, sep, extra = path.partition('\n')
         if extra:
             print 'Too many lines in clipboard.'
         else:
