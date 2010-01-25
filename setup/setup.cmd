@@ -1,8 +1,19 @@
 @echo off
-: TODO - Detect 4NT or TCC/LE and run in CMD instead (or fix python loop problem)
+
+:: detect 4nt or tcc/le
+if "%@eval[2 + 2]%" == "4" goto 4nt_tcc
+goto start
+
+:4nt_tcc
+:: Not compatible with 4nt or tcc/le, so run with cmd
+cmd /C %0 %*
+exit /b %E%
+
+:start
 
 setlocal
 cd ..
+:query_do_setup
 echo ....................................................................
 echo .. These folders will be added to the system path:                ..
 echo ....................................................................
@@ -10,8 +21,22 @@ echo .. %CD%\dev        - Put your development related shortcuts here  ..
 echo .. %CD%\launchers  - ff [firefox], np [notepad] etc               ..
 echo .. %CD%\scripts    - Batch, WSH and Python scripts                ..
 echo ....................................................................
-echo Continue?
-rem choice
+SET /P CHOICE=Continue [Y/N]
+
+if "%CHOICE%"=="Y" goto do_setup
+if "%CHOICE%"=="y" goto do_setup
+if "%CHOICE%"=="N" goto end
+if "%CHOICE%"=="n" goto end
+goto query_do_setup
+
+:do_setup
+echo.
+echo TIP: To update other open command prompts to the new path use the command
+echo regpath /L
+echo.
+call scripts\addpath dev > NUL
+call scripts\addpath launchers > NUL
+call scripts\addpath scripts > NUL
 
 SET PRIMARY_PYTHON=NOT_FOUND
 for /F "tokens=1* delims= " %%a in ('"python --version 2>&1"') DO SET PRIMARY_PYTHON=%%b
@@ -19,6 +44,15 @@ for /F "tokens=1* delims= " %%a in ('"python --version 2>&1"') DO SET PRIMARY_PY
 IF "%PRIMARY_PYTHON%"=="program or batch file." goto no_python
 
 :has_python
+:: TODO - check correct python modules installed
+
+echo Make sure you have these python modules installed
+echo.
+echo pywin32   http://sourceforge.net/projects/pywin32/
+echo winshell  http://timgolden.me.uk/python/winshell.html
+echo.
+
+
 goto python_end
 
 :no_python
@@ -35,4 +69,5 @@ goto python_end
 
 :python_end
 
+:end
 endlocal

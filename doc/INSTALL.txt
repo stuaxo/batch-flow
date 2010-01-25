@@ -2,5 +2,6 @@
 Install the dependencies listed at the end of README.txt
 
 2.
-Add the launchers and scripts folders to the system path 
-(you may use addpath to do this).
+Run setup.cmd in the setup folder, this will:
+- Add the directories to the path
+- Warn if python is not installed
