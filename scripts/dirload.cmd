@@ -37,10 +37,10 @@ if not exist "%APPDATA%\CMD\SaveDirs\%1.scd" goto noslot
 :: need to cd into dir for XP compatibility
 :: pushd, popd in case CD to SaveDirs fails
 pushd
-cd "%APPDATA%\CMD\SaveDirs"
+cd /d "%APPDATA%\CMD\SaveDirs"
 for /f "delims=/" %%A in (%1.scd) do (
 popd
-cd %%A
+cd /d %%A
 goto end
 )
 popd
@@ -66,7 +66,7 @@ goto listdirs_specific
 :showdir
 if ""=="%2" goto showdir_usage
 pushd
-cd "%APPDATA%\CMD\SaveDirs"
+cd /d "%APPDATA%\CMD\SaveDirs"
 for /f "delims=/" %%A in (%2.scd) do (
     echo %2		%%A
     popd
