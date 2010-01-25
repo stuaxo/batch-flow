@@ -13,6 +13,10 @@ exit /b %E%
 
 setlocal
 cd ..
+
+:: Create the dev directory
+IF NOT EXIST dev\NUL mkdir dev
+
 :query_do_setup
 echo ....................................................................
 echo .. These folders will be added to the system path:                ..
