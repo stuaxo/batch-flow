@@ -13,6 +13,7 @@ def _gen_script(script, directory):
         f.write('CD /D %s\n' % directory)
     
 
+
 def goto_directory(directory):
     """
     Generate batch script and then change to directory
@@ -30,7 +31,8 @@ def main():
     
     OpenClipboard()
     if (IsClipboardFormatAvailable(CF_TEXT)):
-        path = GetClipboardData(CF_TEXT)
+        # Copying from clipboard seems to add a 10 and a 0
+        path = GetClipboardData(CF_TEXT).rstrip(chr(10) + chr(0))
     elif (IsClipboardFormatAvailable(CF_HDROP)):
         path = os.path.basename(GetClipboardData(CF_HDROP)[0])
     else:
@@ -38,6 +40,7 @@ def main():
         path = None
     CloseClipboard()
     
+    if not clipboard:
     if not path:
         sys.exit(1)
     
