@@ -46,11 +46,11 @@ def main():
     if drop_effect == DROPEFFECT_COPY:
         for filename in files:
             print filename
-            win32api.MoveFile(filename, os.path.join(targetdir, os.path.basename(filename)))
+            win32api.CopyFile(filename, os.path.join(targetdir, os.path.basename(filename)))
     elif drop_effect == DROPEFFECT_MOVE:
         for filename in files:
             print filename
-            win32api.CopyFile(filename, os.path.join(targetdir, os.path.basename(filename)))
+            win32api.MoveFile(filename, os.path.join(targetdir, os.path.basename(filename)))
         
 
 
