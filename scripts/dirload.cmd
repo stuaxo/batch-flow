@@ -62,20 +62,16 @@ goto listdirs_specific
 
 :showdir
 if ""=="%2" goto showdir_usage
-pushd .
-cd /d "%APPDATA%\CMD\SaveDirs"
-for /f "delims=/" %%A in (%2.scd) do (
+for /f "delims=/" %%A in ('type "%APPDATA%\CMD\SaveDirs\%2.scd"') do (
     echo %2		%%A
-    popd
     goto end
 )
 
 shift
 goto noslot
-popd
+
 :showdir_usage
 echo Must specify directory slot
-echo See dirload /? for usage
 goto end
 
 :batchflowdir
