@@ -36,15 +36,12 @@ if not exist "%APPDATA%\CMD\SaveDirs\%1.scd" goto noslot
 
 :: need to cd into dir for XP compatibility
 :: pushd, popd in case CD to SaveDirs fails
-pushd
-cd /d "%APPDATA%\CMD\SaveDirs"
-for /f "delims=/" %%A in (%1.scd) do (
-popd
-cd /d %%A
+for /f "delims=/" %%A in ('type "%APPDATA%\CMD\SaveDirs\%1.scd"') do (
+CD /D %%A 2>NUL
+if ERRORLEVEL 1 echo [%%A] Not accessible
 goto end
 )
-popd
-echo No directory bookmark %1
+
 goto end
 
 
@@ -65,7 +62,7 @@ goto listdirs_specific
 
 :showdir
 if ""=="%2" goto showdir_usage
-pushd
+pushd .
 cd /d "%APPDATA%\CMD\SaveDirs"
 for /f "delims=/" %%A in (%2.scd) do (
     echo %2		%%A

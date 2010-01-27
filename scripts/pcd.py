@@ -40,7 +40,6 @@ def main():
         path = None
     CloseClipboard()
     
-    if not clipboard:
     if not path:
         sys.exit(1)
     
