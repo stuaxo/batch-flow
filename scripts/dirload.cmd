@@ -51,9 +51,10 @@ goto end
 :check_in_dir
 :: %1 == directory (quoted)
 :: %2 == bookmark name
-if %1=="%CD%" echo This is bookmark %2
-shift
-exit /b 1
+if %1=="%CD%" (
+    echo This is bookmark %2
+    exit /b 1
+)
 goto:eof
 
 :listdirs
@@ -82,11 +83,16 @@ shift
 goto noslot
 
 :querydir
+setlocal
+set match=NO
 for /f %%A IN ('dir /b "%APPDATA%\CMD\SaveDirs\*.scd"') do (
      for /f "delims=/" %%B in ('type "%APPDATA%\CMD\SaveDirs\%%A"') do (    
 	call :check_in_dir "%%B" %%~nA
+	if ERRORLEVEL==1 set match=YES
      )
 )
+if %match%==NO echo Current directory not a bookmark
+endlocal
 goto end
 
 :showdir_usage
