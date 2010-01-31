@@ -26,6 +26,10 @@ if "%1"=="/L" goto listdirs
 if "%1"=="/l" goto listdirs
 if "%1"=="/s" goto showdir
 if "%1"=="/S" goto showdir
+if "%1"=="/Q" goto querydir
+if "%1"=="/q" goto querydir
+
+:: Developer options
 if "%1"=="/-" goto batchflowdir
 if "%1"=="/--" goto showscds
 
@@ -77,6 +81,14 @@ for /f "delims=/" %%A in ('type "%APPDATA%\CMD\SaveDirs\%2.scd"') do (
 shift
 goto noslot
 
+:querydir
+for /f %%A IN ('dir /b "%APPDATA%\CMD\SaveDirs\*.scd"') do (
+     for /f "delims=/" %%B in ('type "%APPDATA%\CMD\SaveDirs\%%A"') do (    
+	call :check_in_dir "%%B" %%~nA
+     )
+)
+goto end
+
 :showdir_usage
 echo Must specify directory slot
 goto end
@@ -111,6 +123,7 @@ echo    dirload name            Change to directory at bookmark 'name'
 echo    dirload /L              List all bookmarked directories
 echo    dirload /L name1 name2  List bookmarks name1 and name2
 echo    dirload /S name         Show directory bookmark called 'name'
+echo    dirload /Q              Query which bookmarks this directory appears in
 echo See also dirsave
 
 :end
