@@ -1,2 +1,10 @@
 @if %_pipe != 0 .or. %_transient != 0 quit
+
+:: To use the configuration that comes with batch-flow with TCC/LE
+:: or 4nt:
+::
+::
+:: Enter OPTION in the tcc/le prompt and set TCSTART/TCEXIT directory
+:: to the directory this file is in
+
 @alias /r %~d0%~p0\aliases.ini

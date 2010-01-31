@@ -15,7 +15,7 @@
 :@@alt-f8=dirload f8
 :@@alt-f9=dirload /l f5 f6 f7 f8
 :
-if "%1"=="" goto usage
+if "%1"=="" goto listdirs
 if "%1"=="/?" goto usage
 if "%1"=="/H" goto usage
 if "%1"=="/h" goto usage
@@ -27,6 +27,7 @@ if "%1"=="/l" goto listdirs
 if "%1"=="/s" goto showdir
 if "%1"=="/S" goto showdir
 if "%1"=="/-" goto batchflowdir
+if "%1"=="/--" goto showscds
 
 goto dirload
 
@@ -34,9 +35,8 @@ goto dirload
 :dirload
 if not exist "%APPDATA%\CMD\SaveDirs\%1.scd" goto noslot
 
-:: need to cd into dir for XP compatibility
-:: pushd, popd in case CD to SaveDirs fails
 for /f "delims=/" %%A in ('type "%APPDATA%\CMD\SaveDirs\%1.scd"') do (
+call :check_in_dir "%%A" %1
 CD /D %%A 2>NUL
 if ERRORLEVEL 1 echo [%%A] Not accessible
 goto end
@@ -44,6 +44,13 @@ goto end
 
 goto end
 
+:check_in_dir
+:: %1 == directory (quoted)
+:: %2 == bookmark name
+if %1=="%CD%" echo This is bookmark %2
+shift
+exit /b 1
+goto:eof
 
 :listdirs
 echo Bookmark	Directory
@@ -80,6 +87,13 @@ echo Going to directory containing dirload
 cd /d %~d0%~p0
 goto end
 
+:showscds
+:: Undocumented feature for developers
+:: Show location of bookmarks
+echo Bookmark save folder is [%%APPDATA%%\CMD\SaveDirs]
+dir "%APPDATA%\CMD\SaveDirs"
+goto end
+
 :noslot
 echo No directory saved at %1
 goto end
@@ -92,8 +106,9 @@ goto end
 
 :usage
 echo dirload usage:
+echo    dirload                 Equivilent to /L
 echo    dirload name            Change to directory at bookmark 'name'
-echo    dirload /L              List bookmarked directories
+echo    dirload /L              List all bookmarked directories
 echo    dirload /L name1 name2  List bookmarks name1 and name2
 echo    dirload /S name         Show directory bookmark called 'name'
 echo See also dirsave
