@@ -35,9 +35,9 @@ goto end
 
 
 :cleardirs
+setlocal
 if not exist "%APPDATA%\CMD\SaveDirs\*.scd" goto nonesaved
 if ""=="%2" goto cleardirs_clearall
-echo Deleting specified bookmarks:
 
 if not ""=="%3" goto cleardirs_clearspecific_confirm
 
@@ -46,12 +46,13 @@ goto cleardirs_clearspecific
 
 :cleardirs_clearspecific_confirm
 shift
-set /p dirload_choice=Clear bookmarks %* ?  [y/N]
+set /p dirload_choice=Clear bookmarks %* ? [y/N]
 if ""=="%dirload_choice%" goto cancelled
 if "Y"=="%dirload_choice%" goto cleardirs_clearspecific
 if "y"=="%dirload_choice%" goto cleardirs_clearspecific
 set dirload_choice=
 goto cancelled
+
 
 :cleardirs_clearspecific
 if ""=="%1" goto end
