@@ -1,4 +1,4 @@
-@echo off
+@echo on
 
 :: detect 4nt or tcc/le
 if "%@eval[2 + 2]%" == "4" goto 4nt_tcc
@@ -38,9 +38,9 @@ echo.
 echo TIP: To update other open command prompts to the new path use the command
 echo regpath /L
 echo.
-call scripts\addpath dev > NUL
-call scripts\addpath launchers > NUL
-call scripts\addpath scripts > NUL
+call scripts\addpath.cmd dev > NUL
+call scripts\addpath.cmd launchers > NUL
+call scripts\addpath.cmd scripts > NUL
 
 SET PYTHON_VERSION=NOT_FOUND
 for /F "tokens=1* delims= " %%a in ('"python --version 2>&1"') DO SET PYTHON_VERSION=%%b
