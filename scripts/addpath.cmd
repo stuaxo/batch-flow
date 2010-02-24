@@ -10,7 +10,7 @@ if "%1"=="/?" goto usage
 if "%1"=="/l" goto add_to_local_path_option
 if "%1"=="/L" goto add_to_local_path_option
 
-cscript //nologo %~d0%~p0\addpath.js %*
+cscript //nologo %~d0%~p0\addpath.js %~d1%~p1
 if ERRORLEVEL 1 goto already_in_path
 if ERRORLEVEL 2 goto does_not_exist
 
