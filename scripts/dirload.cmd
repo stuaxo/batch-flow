@@ -15,13 +15,13 @@
 :@@alt-f8=dirload f8
 :@@alt-f9=dirload /l f5 f6 f7 f8
 :
-if "%1"=="" goto listdirs
 if "%1"=="/?" goto usage
 if "%1"=="/H" goto usage
 if "%1"=="/h" goto usage
 
 if not exist "%APPDATA%\CMD\SaveDirs\*.scd" goto nonesaved
 
+if "%1"=="" goto listdirs
 if "%1"=="/L" goto listdirs
 if "%1"=="/l" goto listdirs
 if "%1"=="/s" goto showdir
@@ -118,7 +118,7 @@ goto end
 
 
 :nonesaved
-echo No directories saved yet
+echo No directories saved, use dirsave to get started.
 goto end
 
 
